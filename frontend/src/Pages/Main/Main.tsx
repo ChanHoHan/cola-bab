@@ -11,7 +11,7 @@ const defaultCenter = {
   lng: 30.33,
 };
 
-const ColaBab = () => {
+const Main = () => {
   const [center, setCenter] = useState<coor>(defaultCenter);
   const handleChange = (value: GoogleMapReact.ChangeEventValue) => {
     console.log(value.center);
@@ -35,4 +35,4 @@ const ColaBab = () => {
   );
 };
 
-export default ColaBab;
+export default Main;

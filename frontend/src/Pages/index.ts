@@ -1,5 +1,5 @@
-import ColaBab from './ColaBab';
-import { Select } from './Select';
-import { Result } from './Result';
+import Select from './Select';
+import Result from './Result';
+import Main from './Main';
 
-export { ColaBab, Select, Result };
+export { Main, Select, Result };
