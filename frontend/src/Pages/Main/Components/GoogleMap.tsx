@@ -2,11 +2,17 @@ import React from 'react';
 import { coor } from 'Types/Map';
 import GoogleMapReact from 'google-map-react';
 import Styled from './GoogleMap.styled';
+import PlaceIcon from '@mui/icons-material/Place';
 
 const GoogleMap: React.FC<{
   defaultCenter: coor;
-  handleChange: (value: GoogleMapReact.ChangeEventValue) => void;
-}> = ({ defaultCenter, handleChange }) => {
+  handleMapMove: (value: GoogleMapReact.ChangeEventValue) => void;
+}> = ({ defaultCenter, handleMapMove }) => {
+  const handleApiLoaded = (map: any, maps: any) => {
+    // use map and maps objects
+    console.log(map);
+    console.log(maps);
+  };
   return (
     <>
       <Styled.MapBox>
@@ -14,11 +20,18 @@ const GoogleMap: React.FC<{
           bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_MAP_KEY ?? '' }}
           defaultCenter={defaultCenter}
           defaultZoom={11}
-          onChange={handleChange}
+          onChange={handleMapMove}
+          onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps)}
         />
-        <span style={{ position: 'absolute', top: '50%', left: '50%' }}>
-          pin!
-        </span>
+        <PlaceIcon
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            color: 'red',
+            transform: 'translate(-50%, -50%)',
+          }}
+        />
       </Styled.MapBox>
     </>
   );
