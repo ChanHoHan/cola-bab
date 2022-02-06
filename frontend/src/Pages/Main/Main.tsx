@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import GoogleMapReact from 'google-map-react';
 import { GoogleMap } from './Components';
-import { coor } from '../../Types/Map';
+import { coor } from 'Types/Map';
+import { Box } from '@mui/material';
+
 const defaultCenter = {
   lat: 59.95,
   lng: 30.33,
@@ -15,12 +17,9 @@ const Main = () => {
   };
 
   return (
-    <>
+    <Box sx={{ width: '100%', height: '100vh' }}>
       <GoogleMap defaultCenter={defaultCenter} handleChange={handleChange} />
-      <span style={{ position: 'absolute', top: '50%', left: '50%' }}>
-        pin!
-      </span>
-    </>
+    </Box>
   );
 };
 
