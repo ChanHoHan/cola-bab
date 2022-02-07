@@ -19,7 +19,7 @@ const GoogleMap: React.FC<{
         <GoogleMapReact
           bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_MAP_KEY ?? '' }}
           defaultCenter={defaultCenter}
-          defaultZoom={11}
+          defaultZoom={15}
           onChange={handleMapMove}
           onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps)}
         />
