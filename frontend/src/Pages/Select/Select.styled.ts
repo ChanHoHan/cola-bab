@@ -6,6 +6,7 @@ const CardBox = styled(TinderCard)<{ bgcolor: string }>`
   width: 80vw;
   height: 80vh;
   border-radius: 30px;
+  top: 32px;
 
   display: flex;
   flex-direction: column;
@@ -32,8 +33,8 @@ const CardBox = styled(TinderCard)<{ bgcolor: string }>`
   }
 
   .mapbox {
-    width: 300px;
-    height: 300px;
+    width: 70vw;
+    height: 70vw;
     overflow: hidden;
     border-radius: 50%;
     box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
@@ -43,11 +44,28 @@ const CardBox = styled(TinderCard)<{ bgcolor: string }>`
 
 const Select = styled.div`
   position: relative;
-
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+
+  width: 100%;
+  height: 100vh;
+
+  .buttons {
+    width: 80vw;
+    padding: 2px;
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 32px;
+
+    button {
+      background: transparent;
+      border: 0px;
+      font-size: 2rem;
+      border-radius: 50%;
+    }
+  }
 `;
 
 const Styled = { CardBox, Select };

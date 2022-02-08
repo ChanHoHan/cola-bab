@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef, useMemo } from 'react';
 import GlobalStyled from 'Components/GlobalStyled.styled';
-import { useTheme } from '@mui/material';
+import { Button, useTheme } from '@mui/material';
 import Styled from './Select.styled';
 import { MapContext } from 'App';
 
@@ -13,8 +13,26 @@ const Select = () => {
   const theme = useTheme();
   const [lastDirection, setLastDirection] = useState<string>('');
 
-  const swiped = (direction: string, nameToDelete: string) => {
-    // setLastDirection(direction);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const canSwipe = currentIndex >= 0;
+
+  const currentIndexRef = useRef(currentIndex);
+
+  const childRefs = useMemo(
+    () =>
+      Array(list.length)
+        .fill(0)
+        .map((i) => React.createRef()),
+    [list]
+  );
+
+  const updateCurrentIndex = (val: number) => {
+    setCurrentIndex(val);
+    currentIndexRef.current = val;
+  };
+
+  const swiped = (direction: string, nameToDelete: string, index: number) => {
+    updateCurrentIndex(index - 1);
   };
 
   const outOfFrame = (name: string) => {
@@ -22,6 +40,7 @@ const Select = () => {
   };
 
   useEffect(() => {
+    setCurrentIndex(list.length - 1);
     list.map((loc, index) => {
       const markerPosition = new kakao.maps.LatLng(loc.y, loc.x);
       const marker = {
@@ -59,6 +78,13 @@ const Select = () => {
     );
   }, []);
 
+  const handleButtonTabbed = async (dir: string) => {
+    if (canSwipe && currentIndex < list.length) {
+      // @ts-ignore
+      await childRefs[currentIndex].current.swipe(dir);
+    }
+  };
+
   return (
     <GlobalStyled.ThemeBox bgcolor={theme.myPalette.background}>
       <Styled.Select>
@@ -66,10 +92,12 @@ const Select = () => {
           const category = element.category_name.split(' > ');
           return (
             <Styled.CardBox
+              // @ts-ignore
+              ref={childRefs[index]}
               className="swipe"
               bgcolor={theme.myPalette.backgroundCard}
               key={element.id}
-              onSwipe={(dir) => swiped(dir, element.id)}
+              onSwipe={(dir) => swiped(dir, element.id, index)}
               onCardLeftScreen={() => outOfFrame(element.id)}
             >
               <div className="vflex">
@@ -80,8 +108,8 @@ const Select = () => {
                 <div
                   id={`myMap${index}`}
                   style={{
-                    width: '300px',
-                    height: '300px',
+                    width: '70vw',
+                    height: '70vw',
                   }}
                 />
               </div>
@@ -89,7 +117,12 @@ const Select = () => {
             </Styled.CardBox>
           );
         })}
-        <span>버튼 네개!</span>
+        <div className="buttons">
+          <button onClick={() => handleButtonTabbed('left')}>👍</button>
+          <button onClick={() => handleButtonTabbed('up')}>😍</button>
+          <button onClick={() => handleButtonTabbed('down')}>❌</button>
+          <button onClick={() => handleButtonTabbed('right')}>👎</button>
+        </div>
       </Styled.Select>
     </GlobalStyled.ThemeBox>
   );
