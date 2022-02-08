@@ -80,8 +80,8 @@ const Select = () => {
                 <div
                   id={`myMap${index}`}
                   style={{
-                    width: '250px',
-                    height: '250px',
+                    width: '300px',
+                    height: '300px',
                   }}
                 />
               </div>

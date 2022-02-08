@@ -20,6 +20,9 @@ const CardBox = styled(TinderCard)<{ bgcolor: string }>`
     p {
       margin: 0;
     }
+    h2 {
+      font-size: 2rem;
+    }
     p {
       color: #212121;
     }
@@ -29,10 +32,12 @@ const CardBox = styled(TinderCard)<{ bgcolor: string }>`
   }
 
   .mapbox {
-    width: 250px;
-    height: 250px;
+    width: 300px;
+    height: 300px;
     overflow: hidden;
     border-radius: 50%;
+    box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+    border: 2px solid #d66d75;
   }
 `;
 
