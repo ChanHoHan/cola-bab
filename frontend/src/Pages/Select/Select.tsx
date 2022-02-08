@@ -3,11 +3,16 @@ import GlobalStyled from 'Components/GlobalStyled.styled';
 import { Button, useTheme } from '@mui/material';
 import Styled from './Select.styled';
 import { MapContext } from 'App';
+import StarBorderRoundedIcon from '@mui/icons-material/StarBorderRounded';
+import ChangeHistoryRoundedIcon from '@mui/icons-material/ChangeHistoryRounded';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
 
 // @ts-ignore
 const { kakao } = window;
 
 const Select = () => {
+  const [isDone, setIsDone] = useState<boolean>(false);
   const [list, setList] = useState([]);
   const { map } = useContext(MapContext);
   const theme = useTheme();
@@ -29,6 +34,7 @@ const Select = () => {
   const updateCurrentIndex = (val: number) => {
     setCurrentIndex(val);
     currentIndexRef.current = val;
+    if (val === 0) setIsDone(true);
   };
 
   const swiped = (direction: string, nameToDelete: string, index: number) => {
@@ -43,21 +49,20 @@ const Select = () => {
     setCurrentIndex(list.length - 1);
     list.map((loc, index) => {
       const markerPosition = new kakao.maps.LatLng(loc.y, loc.x);
-      const marker = {
+      const marker = new kakao.maps.Marker({
         position: markerPosition,
-      };
+      });
 
-      const staticMapContainer = document.getElementById(`myMap${index}`),
-        staticMapOption = {
+      const mapContainer = document.getElementById(`myMap${index}`),
+        mapOption = {
           center: new kakao.maps.LatLng(loc.y, loc.x),
           level: 3,
           marker: marker,
         };
 
-      const staticMap = new kakao.maps.StaticMap(
-        staticMapContainer,
-        staticMapOption
-      );
+      const map = new kakao.maps.Map(mapContainer, mapOption);
+      map.setDraggable(false);
+      marker.setMap(map);
       return true;
     });
   }, [list]);
@@ -88,6 +93,7 @@ const Select = () => {
   return (
     <GlobalStyled.ThemeBox bgcolor={theme.myPalette.background}>
       <Styled.Select>
+        <button className={isDone ? 'result' : 'testing'}>결과보기</button>
         {list.map((element, index) => {
           const category = element.category_name.split(' > ');
           return (
@@ -118,10 +124,18 @@ const Select = () => {
           );
         })}
         <div className="buttons">
-          <button onClick={() => handleButtonTabbed('left')}>👍</button>
-          <button onClick={() => handleButtonTabbed('up')}>😍</button>
-          <button onClick={() => handleButtonTabbed('down')}>❌</button>
-          <button onClick={() => handleButtonTabbed('right')}>👎</button>
+          <button onClick={() => handleButtonTabbed('left')}>
+            <StarBorderRoundedIcon sx={{ color: 'white' }} />
+          </button>
+          <button onClick={() => handleButtonTabbed('up')}>
+            <CircleOutlinedIcon sx={{ color: 'white' }} />
+          </button>
+          <button onClick={() => handleButtonTabbed('right')}>
+            <ChangeHistoryRoundedIcon sx={{ color: 'white' }} />
+          </button>
+          <button onClick={() => handleButtonTabbed('down')}>
+            <CloseRoundedIcon sx={{ color: 'white' }} />
+          </button>
         </div>
       </Styled.Select>
     </GlobalStyled.ThemeBox>

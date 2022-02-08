@@ -7,6 +7,7 @@ const CardBox = styled(TinderCard)<{ bgcolor: string }>`
   height: 80vh;
   border-radius: 30px;
   top: 32px;
+  z-index: 0;
 
   display: flex;
   flex-direction: column;
@@ -22,7 +23,7 @@ const CardBox = styled(TinderCard)<{ bgcolor: string }>`
       margin: 0;
     }
     h2 {
-      font-size: 2rem;
+      font-size: 7vw;
     }
     p {
       color: #212121;
@@ -50,6 +51,21 @@ const Select = styled.div`
 
   width: 100%;
   height: 100vh;
+  .result {
+    position: absolute;
+    top: 50%;
+    background: transparent;
+    border: 0px;
+    font-size: 4rem;
+  }
+  .testing {
+    position: absolute;
+    top: 50%;
+    background: transparent;
+    border: 0px;
+    font-size: 4rem;
+    color: transparent;
+  }
 
   .buttons {
     width: 80vw;
@@ -60,10 +76,30 @@ const Select = styled.div`
     bottom: 32px;
 
     button {
+      width: 14vw;
+      height: 14vw;
       background: transparent;
       border: 0px;
       font-size: 2rem;
       border-radius: 50%;
+      box-shadow: 0px 2px 2px -2px #ffffff77 inset,
+        0px 0px 2px 0px #ffffff77 inset, -2px -2px 6px 0px #ffffff77 inset;
+      :active {
+        box-shadow: 0px -2px 2px -2px #ffffff77 inset,
+          0px 0px 2px 0px #ffffff77 inset, 2px 2px 6px 0px #ffffff77 inset;
+      }
+    }
+    button:nth-child(1) {
+      background-color: #277da1;
+    }
+    button:nth-child(2) {
+      background-color: #90be6d;
+    }
+    button:nth-child(3) {
+      background-color: #f3722c;
+    }
+    button:nth-child(4) {
+      background-color: #f94144;
     }
   }
 `;

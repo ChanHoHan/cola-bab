@@ -10,6 +10,7 @@ import { Button } from '@mui/material';
 import { useTheme } from '@mui/material';
 import GlobalStyled from 'Components/GlobalStyled.styled';
 import { MapContext } from 'App';
+import { curLocation } from 'Utils/curLocation';
 
 const defaultCenter = {
   lat: 37.5,
@@ -40,8 +41,7 @@ const Main = () => {
     };
     const map = new kakao.maps.Map(container, options);
     setMap(map);
-
-    // 요기
+    console.log(curLocation());
   }, []);
 
   const handleStartButtonTabbed = async () => {
