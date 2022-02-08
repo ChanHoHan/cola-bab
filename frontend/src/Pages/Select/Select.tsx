@@ -86,10 +86,10 @@ const Select = () => {
                 />
               </div>
               <span>나랑 거리</span>
-              <span>버튼 네개!</span>
             </Styled.CardBox>
           );
         })}
+        <span>버튼 네개!</span>
       </Styled.Select>
     </GlobalStyled.ThemeBox>
   );
