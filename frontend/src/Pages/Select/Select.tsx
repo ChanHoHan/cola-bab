@@ -125,10 +125,10 @@ const Select = () => {
         })}
         <div className="buttons">
           <button onClick={() => handleButtonTabbed('left')}>
-            <StarBorderRoundedIcon sx={{ color: 'white' }} />
+            <CircleOutlinedIcon sx={{ color: 'white' }} />
           </button>
           <button onClick={() => handleButtonTabbed('up')}>
-            <CircleOutlinedIcon sx={{ color: 'white' }} />
+            <StarBorderRoundedIcon sx={{ color: 'white' }} />
           </button>
           <button onClick={() => handleButtonTabbed('right')}>
             <ChangeHistoryRoundedIcon sx={{ color: 'white' }} />

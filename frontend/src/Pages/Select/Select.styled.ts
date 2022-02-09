@@ -90,10 +90,10 @@ const Select = styled.div`
       }
     }
     button:nth-child(1) {
-      background-color: #277da1;
+      background-color: #90be6d;
     }
     button:nth-child(2) {
-      background-color: #90be6d;
+      background-color: #277da1;
     }
     button:nth-child(3) {
       background-color: #f3722c;

@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useState, createContext } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Main, Select, Result } from './Pages';
+import { Error } from 'Components';
 import './App.css';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -61,6 +62,7 @@ function App() {
             <Route path="/" element={<Main />} />
             <Route path="/:id" element={<Select />} />
             <Route path="/:id/result" element={<Result />} />
+            <Route path="/*" element={<Error />} />
           </Routes>
         </BrowserRouter>
       </ThemeProvider>
