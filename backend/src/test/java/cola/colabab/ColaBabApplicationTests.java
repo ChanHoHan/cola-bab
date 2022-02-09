@@ -8,6 +8,7 @@ class ColaBabApplicationTests {
 
 	@Test
 	void contextLoads() {
+
 	}
 
 }
