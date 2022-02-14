@@ -1,21 +1,48 @@
 package cola.colabab.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import cola.colabab.service.Utils;
 
 public class Group {
-    //private String address_name, category_group_code, category_group_name, category_name, distance, id, phone, place_name, place_url, road_address_name, x, y;
 
+    private String group_uuid, nickname_uuid, restaurant_uuid, result_uuid;
 
-
-    private Map<String, ArrayList<Map<String, String>>> restaurant_lists;
-
-    public Map<String, ArrayList<Map<String, String>>> getRestaurant_lists() {
-        return restaurant_lists;
+    public Group() {
+        Utils util = new Utils();
+        this.group_uuid = util.createUUID();
+        this.nickname_uuid = util.createUUID();
+        this.restaurant_uuid = util.createUUID();
+        this.result_uuid = util.createUUID();
     }
 
-    public void setRestaurant_lists(Map<String, ArrayList<Map<String, String>>> restaurant_lists) {
-        this.restaurant_lists = restaurant_lists;
+    public String getGroup_uuid() {
+        return group_uuid;
+    }
+
+    public void setGroup_uuid(String group_uuid) {
+        this.group_uuid = group_uuid;
+    }
+
+    public String getNickname_uuid() {
+        return nickname_uuid;
+    }
+
+    public void setNickname_uuid(String nickname_uuid) {
+        this.nickname_uuid = nickname_uuid;
+    }
+
+    public String getRestaurant_uuid() {
+        return restaurant_uuid;
+    }
+
+    public void setRestaurant_uuid(String restaurant_uuid) {
+        this.restaurant_uuid = restaurant_uuid;
+    }
+
+    public String getResult_uuid() {
+        return result_uuid;
+    }
+
+    public void setResult_uuid(String result_uuid) {
+        this.result_uuid = result_uuid;
     }
 }
