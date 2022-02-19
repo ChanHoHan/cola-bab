@@ -13,26 +13,33 @@ declare module '@mui/material/styles' {
     myPalette: {
       background: string;
       backgroundCard: string;
+      cloud: string;
     };
   }
   interface ThemeOptions {
     myPalette?: {
       background?: string;
       backgroundCard?: string;
+      cloud?: string;
     };
   }
 }
 
 export const MapContext = createContext<{
   map: any;
+  curLocation: any;
   setMap: React.Dispatch<(prevState: undefined) => undefined>;
+  setCurLocation: React.Dispatch<(prevState: any) => any>;
 }>({
   map: null,
+  curLocation: null,
   setMap: () => {},
+  setCurLocation: () => {},
 });
 
 function App() {
   const [map, setMap] = useState();
+  const [curLocation, setCurLocation] = useState();
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
 
   const theme = React.useMemo(
@@ -42,19 +49,16 @@ function App() {
           mode: prefersDarkMode ? 'dark' : 'light',
         },
         myPalette: {
-          background: prefersDarkMode
-            ? 'linear-gradient(to bottom, #434343, #000000)'
-            : 'linear-gradient(to bottom, #d66d75, #e29587)',
-          backgroundCard: prefersDarkMode
-            ? 'linear-gradient(to bottom, #434343, #000000)'
-            : 'linear-gradient(to bottom, #e7767f, #ee9d8f99)',
+          background: prefersDarkMode ? '#1b1b20' : '#ffffff',
+          backgroundCard: prefersDarkMode ? '#1b1b20' : '#ffffff',
+          cloud: prefersDarkMode ? 'white' : 'black',
         },
       }),
     [prefersDarkMode]
   );
 
   return (
-    <MapContext.Provider value={{ map, setMap }}>
+    <MapContext.Provider value={{ map, curLocation, setMap, setCurLocation }}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <BrowserRouter>

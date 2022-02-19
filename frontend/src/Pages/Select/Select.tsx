@@ -14,6 +14,9 @@ const { kakao } = window;
 const Select = () => {
   const [isDone, setIsDone] = useState<boolean>(false);
   const [list, setList] = useState([]);
+  const [list1, setList1] = useState([]);
+  const [list2, setList2] = useState([]);
+  const [list3, setList3] = useState([]);
   const { map } = useContext(MapContext);
   const theme = useTheme();
   const [lastDirection, setLastDirection] = useState<string>('');
@@ -56,7 +59,7 @@ const Select = () => {
       const mapContainer = document.getElementById(`myMap${index}`),
         mapOption = {
           center: new kakao.maps.LatLng(loc.y, loc.x),
-          level: 3,
+          level: 2,
           marker: marker,
         };
 
@@ -68,19 +71,55 @@ const Select = () => {
   }, [list]);
 
   useEffect(() => {
-    const ps = new kakao.maps.services.Places(map);
-    // @ts-ignore
-    ps.categorySearch(
-      'FD6',
-      (data, status, pagination) => {
-        if (status === kakao.maps.services.Status.OK) {
-          setList(data);
-        }
-      },
-      {
-        useMapBounds: true,
-      }
-    );
+    if (list1.length !== 0 && list2.length !== 0 && list3.length !== 0) {
+      const newList = [...list1, ...list2, ...list3]
+        .sort(() => Math.random() - 0.5)
+        .slice(0, 15);
+      setList(newList);
+    }
+  }, [list1, list2, list3]);
+
+  useEffect(() => {
+    if (map) {
+      const ps = new kakao.maps.services.Places(map);
+      // @ts-ignore
+      console.log(map.getCenter());
+      const options = {
+        location: map.getCenter(),
+        useMapBounds: false,
+        radius: 500,
+        sortby: 'DISTANCE',
+      };
+      ps.categorySearch(
+        'FD6',
+        (data, status, pagination) => {
+          if (status === kakao.maps.services.Status.OK) {
+            setList1(data);
+          }
+        },
+        { ...options, page: 1 }
+      );
+      ps.categorySearch(
+        'FD6',
+        (data, status, pagination) => {
+          if (status === kakao.maps.services.Status.OK) {
+            setList2(data);
+          }
+        },
+        { ...options, page: 2 }
+      );
+      ps.categorySearch(
+        'FD6',
+        (data, status, pagination) => {
+          if (status === kakao.maps.services.Status.OK) {
+            setList3(data);
+          }
+        },
+        { ...options, page: 3 }
+      );
+    } else {
+      console.log('없다');
+    }
   }, []);
 
   const handleButtonTabbed = async (dir: string) => {

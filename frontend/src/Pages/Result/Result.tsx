@@ -1,6 +1,6 @@
 import React from 'react';
 import GlobalStyled from 'Components/GlobalStyled.styled';
-import { useTheme } from '@mui/material';
+import { Button, useTheme } from '@mui/material';
 import Styled from './Result.styled';
 
 const results = [
@@ -11,11 +11,11 @@ const results = [
     },
     {
       name: 'hi',
-      result: 2,
+      result: 0,
     },
     {
       name: 'hi',
-      result: 2,
+      result: 0,
     },
     {
       name: 'hi',
@@ -83,18 +83,18 @@ const Result = () => {
           })}
         </div>
         <div className="buttons">
-          <button>그룹에 참여하기</button>
+          <Button variant="contained">그룹에 참여하기</Button>
           <div>
             <span>
-              <button>a</button>
+              <Button>a</Button>
               <p>결과 공유</p>
             </span>
             <span>
-              <button>a</button>
+              <Button>a</Button>
               <p>친구 초대</p>
             </span>
             <span>
-              <button>a</button>
+              <Button>a</Button>
               <p>그룹 생성</p>
             </span>
           </div>
