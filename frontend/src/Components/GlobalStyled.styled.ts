@@ -84,6 +84,21 @@ const Cloud = styled.div<{ bgcolor: string }>`
     animation: moveclouds 20s linear infinite;
   }
 
+  .bounce {
+    top: 50vh;
+    opacity: 0.8;
+    animation: bounce 3s linear infinite;
+  }
+
+  @keyframes bounce {
+    0% {
+      transform: translateY(10px);
+    }
+    100% {
+      transform: translateY(10px);
+    }
+  }
+
   @keyframes moveclouds {
     0% {
       transform: translateX(100vw);
