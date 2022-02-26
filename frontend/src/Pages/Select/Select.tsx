@@ -131,6 +131,15 @@ const Select = () => {
 
   return (
     <GlobalStyled.ThemeBox bgcolor={theme.myPalette.background}>
+      <GlobalStyled.Cloud bgcolor={theme.myPalette.cloud}>
+        <div className="clouds">
+          <div className="cloud x1" />
+          <div className="cloud x2" />
+          <div className="cloud x3" />
+          <div className="cloud x4" />
+          <div className="cloud x5" />
+        </div>
+      </GlobalStyled.Cloud>
       <Styled.Select>
         <button className={isDone ? 'result' : 'testing'}>결과보기</button>
         {list.map((element, index) => {
