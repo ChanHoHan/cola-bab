@@ -61,7 +61,7 @@ const Main = () => {
 
   return (
     <GlobalStyled.ThemeBox bgcolor={theme.myPalette.background}>
-      <GlobalStyled.Cloud bgcolor="white">
+      <GlobalStyled.Cloud bgcolor={theme.myPalette.cloud}>
         <div className="clouds">
           <div className="cloud x1" />
           <div className="cloud x2" />

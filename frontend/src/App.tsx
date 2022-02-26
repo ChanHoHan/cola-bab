@@ -6,24 +6,8 @@ import { Error } from 'Components';
 import './App.css';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { myPalette } from 'theme/myPalette';
 import CssBaseline from '@mui/material/CssBaseline';
-
-declare module '@mui/material/styles' {
-  interface Theme {
-    myPalette: {
-      background: string;
-      backgroundCard: string;
-      cloud: string;
-    };
-  }
-  interface ThemeOptions {
-    myPalette?: {
-      background?: string;
-      backgroundCard?: string;
-      cloud?: string;
-    };
-  }
-}
 
 export const MapContext = createContext<{
   map: any;
@@ -48,11 +32,7 @@ function App() {
         palette: {
           mode: prefersDarkMode ? 'dark' : 'light',
         },
-        myPalette: {
-          background: prefersDarkMode ? '#1b1b20' : '#ffffff',
-          backgroundCard: prefersDarkMode ? '#1b1b20' : '#ffffff',
-          cloud: prefersDarkMode ? 'white' : 'black',
-        },
+        myPalette: prefersDarkMode ? myPalette.dark : myPalette.light,
       }),
     [prefersDarkMode]
   );
@@ -74,3 +54,9 @@ function App() {
   );
 }
 export default App;
+
+// {
+//   background: prefersDarkMode ? '#1b1b20' : '#ffffff',
+//   backgroundCard: prefersDarkMode ? '#1b1b20' : '#ffffff',
+//   cloud: prefersDarkMode ? '#ffffff' : '#000000',
+// },
