@@ -7,12 +7,15 @@ import StarBorderRoundedIcon from '@mui/icons-material/StarBorderRounded';
 import ChangeHistoryRoundedIcon from '@mui/icons-material/ChangeHistoryRounded';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Loading from 'Components/Loading';
 
 // @ts-ignore
 const { kakao } = window;
 
 const Select = () => {
+  const navi = useNavigate();
+  const location = useLocation();
   const [isDone, setIsDone] = useState<boolean>(false);
   const [searchRadius, setSearchRadius] = useState<number>(500);
   const [isCalculating, setIsCalculating] = useState<boolean>(false);
@@ -35,7 +38,7 @@ const Select = () => {
     () =>
       Array(list.length)
         .fill(0)
-        .map((i) => React.createRef()),
+        .map((_) => React.createRef()),
     [list]
   );
 
@@ -131,13 +134,11 @@ const Select = () => {
       await childRefs[currentIndex].current.swipe(dir);
     }
   };
+  const handleResultButtonTabbed = () => {
+    console.log(`${location}/result`);
+    navi(`${location}/result`);
+  };
 
-  /**
-   * TODO:
-   *  - 로딩 완료되는 타이밍에 setIsLoad(true) 설정하기 ✅
-   *  - 로딩 모달 만들어서 로딩 중일때 띄위기 ...✅
-   *  - 로딩 컴포넌트의 생성 기준은 isLoad 변수 ✅
-   */
   return (
     <GlobalStyled.ThemeBox bgcolor={theme.myPalette.background}>
       {!isLoaded && <Loading />}
@@ -151,7 +152,12 @@ const Select = () => {
         </div>
       </GlobalStyled.Cloud>
       <Styled.Select>
-        <button className={isDone ? 'result' : 'testing'}>결과보기</button>
+        <button
+          className={isDone ? 'result' : 'testing'}
+          onClick={handleResultButtonTabbed}
+        >
+          결과보기
+        </button>
         {list.map((element, index) => {
           const category = element.category_name.split(' > ');
           return (
