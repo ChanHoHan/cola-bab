@@ -13,6 +13,10 @@ const { kakao } = window;
 
 const Select = () => {
   const [isDone, setIsDone] = useState<boolean>(false);
+  const [searchRadius, setSearchRadius] = useState<number>(500);
+  const [isCalculating, setIsCalculating] = useState<boolean>(false);
+  const [isFetchList, setIsFetchList] = useState<boolean>(false);
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [list, setList] = useState([]);
   const [list1, setList1] = useState([]);
   const [list2, setList2] = useState([]);
@@ -71,56 +75,53 @@ const Select = () => {
   }, [list]);
 
   useEffect(() => {
+    if (!isFetchList) return;
     if (list1.length !== 0 && list2.length !== 0 && list3.length !== 0) {
       const newList = [...list1, ...list2, ...list3]
         .sort(() => Math.random() - 0.5)
         .slice(0, 15);
       setList(newList);
+    } else {
+      setSearchRadius((prevState) => prevState + 500);
+      setIsCalculating(false);
     }
-  }, [list1, list2, list3]);
+  }, [list1, list2, list3, isFetchList]);
 
   useEffect(() => {
-    if (map) {
-      const ps = new kakao.maps.services.Places(map);
-      // @ts-ignore
-      console.log(map.getCenter());
+    const categorySearch = async (
+      ps: any,
+      page: number,
+      setEachList: (value: React.SetStateAction<any[]>) => void
+    ) => {
       const options = {
         location: map.getCenter(),
         useMapBounds: false,
-        radius: 500,
+        radius: searchRadius,
         sortby: 'DISTANCE',
       };
-      ps.categorySearch(
+      await ps.categorySearch(
         'FD6',
         (data, status, pagination) => {
           if (status === kakao.maps.services.Status.OK) {
-            setList1(data);
+            setEachList(data);
           }
         },
-        { ...options, page: 1 }
+        { ...options, page: page }
       );
-      ps.categorySearch(
-        'FD6',
-        (data, status, pagination) => {
-          if (status === kakao.maps.services.Status.OK) {
-            setList2(data);
-          }
-        },
-        { ...options, page: 2 }
-      );
-      ps.categorySearch(
-        'FD6',
-        (data, status, pagination) => {
-          if (status === kakao.maps.services.Status.OK) {
-            setList3(data);
-          }
-        },
-        { ...options, page: 3 }
-      );
+    };
+    if (map && !isCalculating) {
+      setIsCalculating(true);
+      const ps = new kakao.maps.services.Places(map);
+      // @ts-ignore
+      console.log(map.getCenter());
+      categorySearch(ps, 1, setList1);
+      categorySearch(ps, 2, setList2);
+      categorySearch(ps, 3, setList3);
+      setIsFetchList(true);
     } else {
-      console.log('없다');
+      console.log('No Result');
     }
-  }, []);
+  }, [searchRadius, map, isCalculating]);
 
   const handleButtonTabbed = async (dir: string) => {
     if (canSwipe && currentIndex < list.length) {
@@ -129,6 +130,12 @@ const Select = () => {
     }
   };
 
+  /**
+   * TODO:
+   *  - 로딩 모달 만들어서 로딩 중일때 띄위기
+   *  - 로딩 완료되는 타이밍에 setIsLoad(true) 설정하기
+   *  - 로딩 컴포넌트의 생성 기준은 isLoad 변수
+   */
   return (
     <GlobalStyled.ThemeBox bgcolor={theme.myPalette.background}>
       <GlobalStyled.Cloud bgcolor={theme.myPalette.cloud}>
