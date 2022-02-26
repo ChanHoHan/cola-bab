@@ -7,6 +7,7 @@ import StarBorderRoundedIcon from '@mui/icons-material/StarBorderRounded';
 import ChangeHistoryRoundedIcon from '@mui/icons-material/ChangeHistoryRounded';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
+import Loading from 'Components/Loading';
 
 // @ts-ignore
 const { kakao } = window;
@@ -72,6 +73,7 @@ const Select = () => {
       marker.setMap(map);
       return true;
     });
+    setIsLoaded(true);
   }, [list]);
 
   useEffect(() => {
@@ -132,12 +134,13 @@ const Select = () => {
 
   /**
    * TODO:
-   *  - 로딩 모달 만들어서 로딩 중일때 띄위기
-   *  - 로딩 완료되는 타이밍에 setIsLoad(true) 설정하기
-   *  - 로딩 컴포넌트의 생성 기준은 isLoad 변수
+   *  - 로딩 완료되는 타이밍에 setIsLoad(true) 설정하기 ✅
+   *  - 로딩 모달 만들어서 로딩 중일때 띄위기 ...✅
+   *  - 로딩 컴포넌트의 생성 기준은 isLoad 변수 ✅
    */
   return (
     <GlobalStyled.ThemeBox bgcolor={theme.myPalette.background}>
+      {!isLoaded && <Loading />}
       <GlobalStyled.Cloud bgcolor={theme.myPalette.cloud}>
         <div className="clouds">
           <div className="cloud x1" />

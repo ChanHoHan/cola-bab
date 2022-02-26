@@ -75,7 +75,7 @@ const Main = () => {
       <Styled.VFlexBox>
         <TextField id="outlined-basic" variant="outlined" />
         <Button variant="contained" onClick={handleStartButtonTabbed}>
-          시작 하기
+          시작 하기x
         </Button>
       </Styled.VFlexBox>
       <span>@Team ChanSu</span>
