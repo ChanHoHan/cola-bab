@@ -7,7 +7,7 @@ import StarBorderRoundedIcon from '@mui/icons-material/StarBorderRounded';
 import ChangeHistoryRoundedIcon from '@mui/icons-material/ChangeHistoryRounded';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import Loading from 'Components/Loading';
 
 // @ts-ignore
@@ -15,7 +15,7 @@ const { kakao } = window;
 
 const Select = () => {
   const navi = useNavigate();
-  const location = useLocation();
+  const id = useParams();
   const [isDone, setIsDone] = useState<boolean>(false);
   const [searchRadius, setSearchRadius] = useState<number>(500);
   const [isCalculating, setIsCalculating] = useState<boolean>(false);
@@ -135,8 +135,8 @@ const Select = () => {
     }
   };
   const handleResultButtonTabbed = () => {
-    console.log(`${location}/result`);
-    navi(`${location}/result`);
+    console.log(`${id}/result`);
+    navi(`${id}/result`);
   };
 
   return (
