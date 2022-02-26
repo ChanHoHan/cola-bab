@@ -15,7 +15,7 @@ const { kakao } = window;
 
 const Select = () => {
   const navi = useNavigate();
-  const id = useParams();
+  const { id } = useParams();
   const [isDone, setIsDone] = useState<boolean>(false);
   const [searchRadius, setSearchRadius] = useState<number>(500);
   const [isCalculating, setIsCalculating] = useState<boolean>(false);
