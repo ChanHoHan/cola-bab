@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, useRef, useMemo } from 'react';
-import GlobalStyled from 'Components/GlobalStyled.styled';
+import GlobalStyled from 'Components/GlobaStyled/GlobalStyled.styled';
 import { Button, useTheme } from '@mui/material';
 import Styled from './Select.styled';
 import { MapContext } from 'App';
@@ -55,6 +55,9 @@ const Select = () => {
   const outOfFrame = (name: string) => {
     console.log(name + ' left the screen!');
   };
+  useEffect(() => {
+    console.log(isLoaded);
+  }, [isLoaded]);
 
   useEffect(() => {
     setCurrentIndex(list.length - 1);

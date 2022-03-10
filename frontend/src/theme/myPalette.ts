@@ -1,3 +1,6 @@
+const LightThemeColor = '#54aab5';
+const DarkThemeColor = '#1b1b20';
+
 declare module '@mui/material/styles' {
   interface Theme {
     myPalette: {
@@ -17,13 +20,14 @@ declare module '@mui/material/styles' {
 
 export const myPalette = {
   light: {
-    background: '#ffffff',
-    backgroundCard: '#ffffff',
-    cloud: '#000000',
+    background: LightThemeColor + '33',
+    backgroundCard: '#bfe5ec',
+
+    cloud: LightThemeColor,
   },
   dark: {
-    background: '#1b1b20',
-    backgroundCard: '#1b1b20',
+    background: DarkThemeColor,
+    backgroundCard: DarkThemeColor,
     cloud: '#ffffff',
   },
 };

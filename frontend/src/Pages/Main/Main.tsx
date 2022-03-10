@@ -8,7 +8,7 @@ import Styled from './Main.styled';
 import { TextField } from '@mui/material';
 import { Button } from '@mui/material';
 import { useTheme } from '@mui/material';
-import GlobalStyled from 'Components/GlobalStyled.styled';
+import GlobalStyled from 'Components/GlobaStyled/GlobalStyled.styled';
 import { MapContext } from 'App';
 
 const defaultCenter = {

@@ -1,5 +1,5 @@
 import React from 'react';
-import GlobalStyled from 'Components/GlobalStyled.styled';
+import GlobalStyled from 'Components/GlobaStyled/GlobalStyled.styled';
 import { Button, useTheme } from '@mui/material';
 import Styled from './Result.styled';
 
