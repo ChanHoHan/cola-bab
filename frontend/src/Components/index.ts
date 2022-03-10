@@ -1,4 +1,5 @@
 import Error from './Error';
-import GlobalStyled from './GlobalStyled.styled';
+import Loading from './Loading';
+import GlobalStyled from './GlobaStyled/GlobalStyled.styled';
 
-export { Error, GlobalStyled };
+export { Error, Loading, GlobalStyled };
