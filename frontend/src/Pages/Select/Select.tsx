@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext, useRef, useMemo } from 'react';
 import GlobalStyled from 'Components/GlobaStyled/GlobalStyled.styled';
-import { Button, useTheme } from '@mui/material';
+import { useTheme } from '@mui/material';
 import Styled from './Select.styled';
 import { MapContext } from 'App';
 import StarBorderRoundedIcon from '@mui/icons-material/StarBorderRounded';
@@ -27,7 +27,7 @@ const Select = () => {
   const [list3, setList3] = useState([]);
   const { map } = useContext(MapContext);
   const theme = useTheme();
-  const [lastDirection, setLastDirection] = useState<string>('');
+  // const [lastDirection, setLastDirection] = useState<string>('');
 
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const canSwipe = currentIndex >= 0;
@@ -55,35 +55,40 @@ const Select = () => {
   const outOfFrame = (name: string) => {
     console.log(name + ' left the screen!');
   };
-  useEffect(() => {
-    console.log(isLoaded);
-  }, [isLoaded]);
 
   useEffect(() => {
+    if (list.length === 0) return;
+    function drawCard() {
+      for (const [index, loc] of list.entries()) {
+        const markerPosition = new kakao.maps.LatLng(loc.y, loc.x);
+        const marker = new kakao.maps.Marker({
+          position: markerPosition,
+        });
+
+        const mapContainer = document.getElementById(`myMap${index}`),
+          mapOption = {
+            center: new kakao.maps.LatLng(loc.y, loc.x),
+            level: 2,
+            marker: marker,
+          };
+
+        const map = new kakao.maps.Map(mapContainer, mapOption);
+        map.setDraggable(false);
+        marker.setMap(map);
+      }
+    }
     setCurrentIndex(list.length - 1);
-    list.map((loc, index) => {
-      const markerPosition = new kakao.maps.LatLng(loc.y, loc.x);
-      const marker = new kakao.maps.Marker({
-        position: markerPosition,
-      });
-
-      const mapContainer = document.getElementById(`myMap${index}`),
-        mapOption = {
-          center: new kakao.maps.LatLng(loc.y, loc.x),
-          level: 2,
-          marker: marker,
-        };
-
-      const map = new kakao.maps.Map(mapContainer, mapOption);
-      map.setDraggable(false);
-      marker.setMap(map);
-      return true;
-    });
-    setIsLoaded(true);
+    drawCard();
+    const timer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 500);
+    return () => {
+      clearTimeout(timer);
+    };
   }, [list]);
 
   useEffect(() => {
-    if (!isFetchList) return;
+    if (!isFetchList || list.length !== 0) return;
     if (list1.length !== 0 && list2.length !== 0 && list3.length !== 0) {
       const newList = [...list1, ...list2, ...list3]
         .sort(() => Math.random() - 0.5)
@@ -93,7 +98,7 @@ const Select = () => {
       setSearchRadius((prevState) => prevState + 500);
       setIsCalculating(false);
     }
-  }, [list1, list2, list3, isFetchList]);
+  }, [list1, list2, list3, isFetchList, list]);
 
   useEffect(() => {
     const categorySearch = async (
@@ -116,16 +121,15 @@ const Select = () => {
         },
         { ...options, page: page }
       );
+      if (page === 3) setIsFetchList(true);
     };
     if (map && !isCalculating) {
       setIsCalculating(true);
       const ps = new kakao.maps.services.Places(map);
       // @ts-ignore
-      console.log(map.getCenter());
       categorySearch(ps, 1, setList1);
       categorySearch(ps, 2, setList2);
       categorySearch(ps, 3, setList3);
-      setIsFetchList(true);
     } else {
       console.log('No Result');
     }
@@ -145,6 +149,7 @@ const Select = () => {
   return (
     <GlobalStyled.ThemeBox bgcolor={theme.myPalette.background}>
       {!isLoaded && <Loading />}
+      <Loading />
       <GlobalStyled.Cloud bgcolor={theme.myPalette.cloud}>
         <div className="clouds">
           <div className="cloud x1" />
@@ -169,7 +174,7 @@ const Select = () => {
               ref={childRefs[index]}
               className="swipe"
               bgcolor={theme.myPalette.backgroundCard}
-              key={element.id}
+              key={element.id + index}
               onSwipe={(dir) => swiped(dir, element.id, index)}
               onCardLeftScreen={() => outOfFrame(element.id)}
             >
