@@ -6,6 +6,8 @@ declare module '@mui/material/styles' {
     myPalette: {
       background: string;
       backgroundCard: string;
+      backgroundLoading: string;
+      foreground: string;
       cloud: string;
     };
   }
@@ -13,6 +15,8 @@ declare module '@mui/material/styles' {
     myPalette?: {
       background?: string;
       backgroundCard?: string;
+      backgroundLoading: string;
+      foreground: string;
       cloud?: string;
     };
   }
@@ -20,14 +24,17 @@ declare module '@mui/material/styles' {
 
 export const myPalette = {
   light: {
-    background: LightThemeColor + '33',
+    background: '#e1eef0',
     backgroundCard: '#bfe5ec',
-
+    backgroundLoading: '#e1eef0',
+    foreground: '#222222',
     cloud: LightThemeColor,
   },
   dark: {
     background: DarkThemeColor,
     backgroundCard: DarkThemeColor,
+    backgroundLoading: DarkThemeColor,
+    foreground: '#ffffff',
     cloud: '#ffffff',
   },
 };
