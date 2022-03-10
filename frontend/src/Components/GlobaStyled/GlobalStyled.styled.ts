@@ -86,16 +86,20 @@ const Cloud = styled.div<{ bgcolor: string }>`
 
   .bounce {
     top: 50vh;
+    left: 50%;
     opacity: 0.8;
-    animation: bounce 3s linear infinite;
+    animation: bounce 2s linear infinite;
   }
 
   @keyframes bounce {
     0% {
-      transform: translateY(10px);
+      transform: translate(-50%, -40px);
+    }
+    50% {
+      transform: translate(-50%, 0px);
     }
     100% {
-      transform: translateY(10px);
+      transform: translate(-50%, -40px);
     }
   }
 
